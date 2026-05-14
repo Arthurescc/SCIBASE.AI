@@ -193,12 +193,24 @@ function rebaseOfflineQueue(baseDocument, serverOperations, offlineQueue) {
   const audit = [];
   const applied = [];
   const blocked = [];
+  const seenOperationIds = new Set();
 
   for (const operation of serverOperations) {
     serverDocument = applyServerOperation(serverDocument, operation);
   }
 
   for (const operation of offlineQueue) {
+    if (seenOperationIds.has(operation.id)) {
+      audit.push({
+        operationId: operation.id,
+        actorId: operation.actorId,
+        status: "skipped-duplicate",
+        blockId: operation.blockId
+      });
+      continue;
+    }
+    seenOperationIds.add(operation.id);
+
     const conflict = detectConflict(serverDocument, operation);
     if (conflict && conflict.severity !== "warning") {
       blocked.push({ operationId: operation.id, conflict });
@@ -245,14 +257,23 @@ function buildConflictReport(result) {
       type: entry.warning.type,
       reason: entry.warning.reason
     }));
+  const skipped = result.audit
+    .filter((entry) => entry.status === "skipped-duplicate")
+    .map((entry) => ({
+      operationId: entry.operationId,
+      type: "duplicate-operation",
+      reason: "Operation id was already replayed in this offline sync batch."
+    }));
 
   return {
     status: blockers.length === 0 ? "ready-to-sync" : "manual-review-required",
     appliedCount: result.applied.length,
     blockedCount: blockers.length,
     warningCount: warnings.length,
+    skippedCount: skipped.length,
     blockers,
     warnings,
+    skipped,
     auditHash: hashPayload(result.audit),
     restoreSnapshotId: result.snapshot.id
   };

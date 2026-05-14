@@ -11,9 +11,10 @@ It is intentionally dependency-free so reviewers can run it with stock Node.js.
 - Rebase of offline edits on top of server operations.
 - Section lock checks so protected manuscript areas are not overwritten.
 - Safe inline comment and suggestion merging.
+- Idempotent operation replay so retried offline operations do not apply twice.
 - Stale version and missing suggestion conflict reporting.
 - Restore-ready snapshots with content hashes.
-- Reviewer-facing audit reports with stable audit hashes.
+- Reviewer-facing audit reports with stable audit hashes and duplicate replay counts.
 
 ## Demo
 
@@ -36,7 +37,7 @@ npm run demo
 ## Files
 
 - `src/conflict-resolver.js` - core queue, rebase, snapshot, and report logic.
-- `test/conflict-resolver.test.js` - focused tests for rebase, locks, suggestions, and snapshots.
+- `test/conflict-resolver.test.js` - focused tests for rebase, locks, suggestions, duplicate replay, and snapshots.
 - `scripts/demo.js` - CLI demo with sample scientific manuscript blocks.
 - `docs/issue-12-requirement-map.md` - mapping from issue requirements to implementation evidence.
 

@@ -111,6 +111,30 @@ function testSuggestionResolutionIsSafe() {
   assert.strictEqual(suggestion.resolvedBy, "reviewer-a");
 }
 
+function testDuplicateOfflineOperationIsSkipped() {
+  let queue = [];
+  const operation = {
+    id: "offline-duplicate",
+    actorId: "editor-a",
+    blockId: "intro",
+    expectedVersion: 1,
+    content: "Initial claim with one offline replay."
+  };
+  queue = queueOfflineOperation(queue, operation);
+  queue = queueOfflineOperation(queue, operation);
+
+  const result = rebaseOfflineQueue(fixture(), [], queue);
+  const report = buildConflictReport(result);
+  const intro = result.document.blocks.find((block) => block.id === "intro");
+  const duplicateAudit = result.audit.find((entry) => entry.status === "skipped-duplicate");
+
+  assert.deepStrictEqual(result.applied, ["offline-duplicate"]);
+  assert.strictEqual(intro.version, 2);
+  assert.strictEqual(duplicateAudit.operationId, "offline-duplicate");
+  assert.strictEqual(report.skippedCount, 1);
+  assert.strictEqual(report.skipped[0].type, "duplicate-operation");
+}
+
 function testMissingSuggestionIsAudited() {
   let queue = [];
   queue = queueOfflineOperation(queue, {
@@ -141,6 +165,7 @@ const tests = [
   testRebasesOfflineUpdateAfterServerChange,
   testBlocksLockedSectionConflict,
   testSuggestionResolutionIsSafe,
+  testDuplicateOfflineOperationIsSkipped,
   testMissingSuggestionIsAudited,
   testSnapshotIsRestoreReady
 ];
