@@ -37,6 +37,15 @@ function testUnderchargeDetectedForOverQuotaUsage() {
   assert.strictEqual(result.anomalies[0].amountCents, 500);
 }
 
+function testOverchargeDetectedForRefundRisk() {
+  const account = cleanAccount();
+  account.invoices = [{ amountCents: 11250 }];
+  const result = reconcileAccount(account);
+  assert.strictEqual(result.deltaCents, 1250);
+  assert.strictEqual(result.anomalies[0].type, "overcharge");
+  assert.strictEqual(result.anomalies[0].amountCents, 1250);
+}
+
 function testLicensingExportRiskDetected() {
   const account = cleanAccount();
   account.licensingExports = [{ id: "lic-risk", dataset: "grant-map", anonymized: false, fields: ["orcid", "raw_email"] }];
@@ -78,6 +87,7 @@ function testEntitlementRegressionMatrixMarksNewAccounts() {
 const tests = [
   testCleanAccountHasNoAnomalies,
   testUnderchargeDetectedForOverQuotaUsage,
+  testOverchargeDetectedForRefundRisk,
   testLicensingExportRiskDetected,
   testRevenueHealthReportAggregatesRisk,
   testEntitlementRegressionMatrixFlagsNewReviewState,

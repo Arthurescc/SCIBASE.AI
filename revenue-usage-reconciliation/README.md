@@ -23,6 +23,7 @@ npm run demo
 ```
 
 The demo prints a report with one clean lab account, one undercharged institutional account, and one unsafe licensing export.
+Text-only demo evidence is included in `docs/demo-transcript.md` for reviewers who prefer not to inspect the GIF.
 
 ## Verification
 
@@ -38,6 +39,7 @@ npm run demo
 - `test/reconciliation.test.js` - focused tests for clean billing, undercharges, licensing risk, aggregation, and regressions.
 - `scripts/demo.js` - CLI demo with sample subscription, usage, invoice, and licensing data.
 - `docs/issue-20-requirement-map.md` - mapping from issue requirements to implementation evidence.
+- `docs/demo-transcript.md` - text-only reviewer evidence for the demo scenario.
 
 ## AI-Assisted Disclosure
 
