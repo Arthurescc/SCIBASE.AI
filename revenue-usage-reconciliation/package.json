@@ -1,0 +1,13 @@
+{
+  "name": "revenue-usage-reconciliation",
+  "version": "1.0.0",
+  "description": "Usage anomaly reconciliation and entitlement regression reporting for SCIBASE revenue infrastructure.",
+  "main": "src/reconciliation.js",
+  "type": "commonjs",
+  "scripts": {
+    "check": "node --check src/reconciliation.js && node --check scripts/demo.js && node --check test/reconciliation.test.js",
+    "demo": "node scripts/demo.js",
+    "test": "node test/reconciliation.test.js"
+  },
+  "license": "Apache-2.0"
+}
