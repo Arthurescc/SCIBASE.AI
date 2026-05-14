@@ -1,0 +1,13 @@
+{
+  "name": "offline-collaboration-conflict-resolver",
+  "version": "1.0.0",
+  "description": "Offline edit rebase and conflict audit module for the SCIBASE real-time collaborative research editor bounty.",
+  "main": "src/conflict-resolver.js",
+  "type": "commonjs",
+  "scripts": {
+    "check": "node --check src/conflict-resolver.js && node --check scripts/demo.js && node --check test/conflict-resolver.test.js",
+    "demo": "node scripts/demo.js",
+    "test": "node test/conflict-resolver.test.js"
+  },
+  "license": "Apache-2.0"
+}

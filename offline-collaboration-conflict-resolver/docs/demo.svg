@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="520" viewBox="0 0 920 520" role="img" aria-labelledby="title desc">
+  <title id="title">Offline collaboration conflict resolver demo</title>
+  <desc id="desc">A simple diagram showing offline edits rebased onto server operations with an audit report.</desc>
+  <rect width="920" height="520" fill="#f7f8fb"/>
+  <rect x="40" y="50" width="230" height="150" rx="8" fill="#ffffff" stroke="#b7c0cc"/>
+  <text x="64" y="86" font-family="Arial" font-size="20" fill="#1f2937">Offline queue</text>
+  <text x="64" y="122" font-family="Arial" font-size="15" fill="#374151">off-1 abstract edit</text>
+  <text x="64" y="150" font-family="Arial" font-size="15" fill="#374151">off-2 locked method edit</text>
+  <text x="64" y="178" font-family="Arial" font-size="15" fill="#374151">off-3 suggestion resolve</text>
+  <rect x="345" y="50" width="230" height="150" rx="8" fill="#ffffff" stroke="#b7c0cc"/>
+  <text x="369" y="86" font-family="Arial" font-size="20" fill="#1f2937">Server revision</text>
+  <text x="369" y="122" font-family="Arial" font-size="15" fill="#374151">remote abstract update</text>
+  <text x="369" y="150" font-family="Arial" font-size="15" fill="#374151">methods section locked</text>
+  <text x="369" y="178" font-family="Arial" font-size="15" fill="#374151">open review suggestion</text>
+  <path d="M270 125 H345" stroke="#4f46e5" stroke-width="4" marker-end="url(#arrow)"/>
+  <rect x="650" y="50" width="230" height="150" rx="8" fill="#ffffff" stroke="#b7c0cc"/>
+  <text x="674" y="86" font-family="Arial" font-size="20" fill="#1f2937">Rebase result</text>
+  <text x="674" y="122" font-family="Arial" font-size="15" fill="#047857">2 applied</text>
+  <text x="674" y="150" font-family="Arial" font-size="15" fill="#b45309">1 manual review</text>
+  <text x="674" y="178" font-family="Arial" font-size="15" fill="#374151">restore snapshot saved</text>
+  <path d="M575 125 H650" stroke="#4f46e5" stroke-width="4" marker-end="url(#arrow)"/>
+  <rect x="150" y="290" width="620" height="150" rx="8" fill="#ffffff" stroke="#b7c0cc"/>
+  <text x="182" y="326" font-family="Arial" font-size="20" fill="#1f2937">Conflict audit report</text>
+  <text x="182" y="362" font-family="Arial" font-size="15" fill="#374151">status: manual-review-required</text>
+  <text x="182" y="392" font-family="Arial" font-size="15" fill="#374151">blocker: section-lock on methods, owned by reviewer-2</text>
+  <text x="182" y="422" font-family="Arial" font-size="15" fill="#374151">audit hash and restore snapshot make sync decisions reviewable</text>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#4f46e5"/>
+    </marker>
+  </defs>
+</svg>
